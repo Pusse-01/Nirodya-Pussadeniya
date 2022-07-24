@@ -4,9 +4,12 @@ import {
   FaTimes,
   FaGithub,
   FaLinkedin,
+  FaMedium,
+  
   FaFacebook,
   FaLinkedinIn,
 } from 'react-icons/fa';
+import {SiFiverr} from 'react-icons/si'
 import { HiOutlineMail } from 'react-icons/hi';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import Logo from '../assets/logo.png';
@@ -35,15 +38,16 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
+          <Link to='experience' smooth={true} duration={500}>
+            Experience
+          </Link>
+        </li>
+        <li>
           <Link to='projects' smooth={true} duration={500}>
             Projects
           </Link>
         </li>
-        {/* <li>
-          <Link to='work' smooth={true} duration={500}>
-            Work
-          </Link>
-        </li> */}
+        
         <li>
           <Link to='contact' smooth={true} duration={500}>
             Contact
@@ -101,7 +105,7 @@ const Navbar = () => {
           <li className='w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-blue-600'>
             <a
               className='flex justify-between items-center w-full text-gray-300'
-              href='/'
+              href='https://www.linkedin.com/in/nirodya-pussadeniya-81091a199/'
             >
               Linkedin <FaLinkedin size={30} />
             </a>
@@ -109,25 +113,25 @@ const Navbar = () => {
           <li className='w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-[#333333]'>
             <a
               className='flex justify-between items-center w-full text-gray-300'
-              href='/'
+              href='https://github.com/Pusse-01'
             >
               Github <FaGithub size={30} />
             </a>
           </li>
-          <li className='w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-[#6fc2b0]'>
+          <li className='w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-[#00ab41]'>
             <a
               className='flex justify-between items-center w-full text-gray-300'
-              href='/'
+              href='https://www.fiverr.com/ryan_rashmin'
             >
-              Email <HiOutlineMail size={30} />
+              Fiverr <SiFiverr size={30} />
             </a>
           </li>
           <li className='w-[160px] h-[60px] flex justify-between items-center ml-[-100px] hover:ml-[-10px] duration-300 bg-[#565f69]'>
             <a
               className='flex justify-between items-center w-full text-gray-300'
-              href='/'
+              href='https://medium.com/@Nirodya_Pussadeniya'
             >
-              Resume <BsFillPersonLinesFill size={30} />
+              Medium <FaMedium size={30} />
             </a>
           </li>
         </ul>

@@ -3,11 +3,11 @@ import me from './../assets/me.jpg';
 
 const About = () => {
   return (
-    <div name='about' className='w-full h-screen bg-[#0a192f] text-gray-300'>
+    <div name='about' className='w-full h-auto bg-[#0a192f] text-gray-300'>
       
 
-        <div className='flex flex-col justify-center items-center w-full h-full'>
-          <div className='main_div'>
+        <div className='flex flex-col justify-center items-center w-full h-auto'>
+          <div>
         <div className='max-w-[1000px] w-full grid grid-cols-2 gap-8'>
           <div className='sm:text-right pb-8 pl-4'>
             <p className='text-2xl font-bold'>
@@ -21,7 +21,7 @@ const About = () => {
               {/* <p>Hi. I'm Clint, nice to meet you. Please take a look around.</p> */}
               <img src={me} alt="Nirodya" />
             </div>
-            <div>
+            <div className='div-margin'>
               <p>I am a goal-oriented individual with the ability to cope up with any responsibility and duty given to me. I have the capability of interacting with various types of people and working together as a team with having a good team spirit.
 
 I received my secondary education at Kingswood Colege where I completed my G.C.E. Ordinary Level and Advanced Level Examinations.
