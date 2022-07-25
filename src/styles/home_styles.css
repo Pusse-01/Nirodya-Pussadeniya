@@ -134,3 +134,12 @@ box-sizing: inherit;
             list-style: none;
 }
 
+.p_inline{
+    display: flex;
+        /* -webkit-box-pack: justify; */
+        /* justify-content: space-between; */
+        /* -webkit-box-align: center;
+        align-items: center; */
+        /* margin-bottom: 35px; */
+}
+

@@ -2,6 +2,7 @@ import React from 'react';
 import HTML from '../assets/html.png';
 import CSS from '../assets/css.png';
 import './../styles/home_styles.css'
+import {FaGithub} from 'react-icons/fa';
 
 const Projects = () => {
     return (
@@ -152,6 +153,17 @@ and outputs can be given in Sinhala </p>
                   </footer>
               </div>
               </div>
+              <header>
+                <div className='p_inline'>
+                <p >Want to see more works? </p>
+                <a className='flex justify-between items-center w-full text-gray-300'
+                href='https://github.com/Pusse-01'
+                > <FaGithub size={30} />
+                </a>
+              
+              </div>
+              </header>
+              
  </div>
 
 </div>
