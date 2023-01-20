@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/Nirodya-Pussadeniya/static/css/main.d95f0754.css",
-    "main.js": "/Nirodya-Pussadeniya/static/js/main.bb1ea178.js",
+    "main.js": "/Nirodya-Pussadeniya/static/js/main.a8d61a21.js",
     "static/media/realestate.jpg": "/Nirodya-Pussadeniya/static/media/realestate.44fd19f4c6872731149c.jpg",
-    "static/media/Resume.pdf": "/Nirodya-Pussadeniya/static/media/Resume.270a3546be1976c10ce1.pdf",
+    "static/media/Resume.pdf": "/Nirodya-Pussadeniya/static/media/Resume.f98e073d3c05d0c2c110.pdf",
     "static/media/me.jpg": "/Nirodya-Pussadeniya/static/media/me.5f5423ac934034912d11.jpg",
     "static/media/workImg.jpeg": "/Nirodya-Pussadeniya/static/media/workImg.e4c66be6ae2ae4f83608.jpeg",
     "static/media/react.png": "/Nirodya-Pussadeniya/static/media/react.0cf951a69d8e58f83f9d.png",
@@ -19,10 +19,10 @@
     "static/media/javascript.png": "/Nirodya-Pussadeniya/static/media/javascript.1ccd6ef9bb1f9c84ef00.png",
     "index.html": "/Nirodya-Pussadeniya/index.html",
     "main.d95f0754.css.map": "/Nirodya-Pussadeniya/static/css/main.d95f0754.css.map",
-    "main.bb1ea178.js.map": "/Nirodya-Pussadeniya/static/js/main.bb1ea178.js.map"
+    "main.a8d61a21.js.map": "/Nirodya-Pussadeniya/static/js/main.a8d61a21.js.map"
   },
   "entrypoints": [
     "static/css/main.d95f0754.css",
-    "static/js/main.bb1ea178.js"
+    "static/js/main.a8d61a21.js"
   ]
 }
