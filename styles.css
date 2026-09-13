@@ -137,12 +137,12 @@ a{ color:inherit; text-decoration:none; }
 
 .hero-in{
   display:grid;
-  grid-template-columns:minmax(0,1.55fr) minmax(0,.8fr);
+  grid-template-columns:minmax(0,1fr) auto;
   gap:var(--gap);
   align-items:start;
 }
 @media (max-width:900px){
-  .hero-in{ grid-template-columns:1fr; gap:clamp(2.5rem,7vw,3.5rem); }
+  .hero-in{ grid-template-columns:1fr; gap:clamp(1.75rem,5vw,2.5rem); }
 }
 
 .eyebrow{
@@ -214,17 +214,25 @@ a{ color:inherit; text-decoration:none; }
 }
 .hero-links .cv:hover{ color:var(--ink); }
 
-/* portrait */
-.portrait{ margin:0; }
+/* portrait — a circular mark, not a photographic slab */
+.portrait{
+  margin:0;
+  justify-self:end;
+  align-self:center;
+}
 .portrait img{
-  width:100%;
-  border-radius:3px;
+  width:clamp(10rem,17vw,14rem);
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:50%;
   background:#0b0b0d;
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 62%,rgba(0,0,0,.55) 86%,rgba(0,0,0,0) 100%);
-          mask-image:linear-gradient(180deg,#000 0%,#000 62%,rgba(0,0,0,.55) 86%,rgba(0,0,0,0) 100%);
+  box-shadow:0 0 0 1px rgba(23,23,27,.08),
+             0 12px 30px -16px rgba(23,23,27,.35);
 }
 @media (max-width:900px){
-  .portrait{ max-width:16rem; }
+  /* stacked: the portrait leads, above the name, rather than trailing the text */
+  .portrait{ order:-1; justify-self:start; align-self:start; }
+  .portrait img{ width:8.5rem; }
 }
 
 /* fact strip */
