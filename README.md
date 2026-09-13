@@ -64,3 +64,30 @@ If you swap the portrait, regenerate `og.jpg` too so the social card matches.
 - Reveal animations are gated on a `.js` class, so the page is fully readable with
   JavaScript disabled, and they are disabled under `prefers-reduced-motion`.
 - Phone number is deliberately not on the page — email and LinkedIn only.
+
+## DNS (Namecheap → GitHub Pages)
+
+The domain is registered at Namecheap on BasicDNS. In **Domain List → Manage →
+Advanced DNS → Host Records**, the records must be exactly:
+
+| Type  | Host | Value                | TTL       |
+|-------|------|----------------------|-----------|
+| A     | @    | 185.199.108.153      | Automatic |
+| A     | @    | 185.199.109.153      | Automatic |
+| A     | @    | 185.199.110.153      | Automatic |
+| A     | @    | 185.199.111.153      | Automatic |
+| CNAME | www  | pusse-01.github.io.  | Automatic |
+
+Delete Namecheap's default parking records first (an A record on `@` pointing at
+192.64.119.250, and a CNAME on `www` pointing at parkingpage.namecheap.com).
+Also set **Redirect Domain** to "no redirect" if it is set.
+
+Once `dig +short nirodya.com` returns the four 185.199.x.x addresses, turn on
+**Enforce HTTPS** in the repository's Settings → Pages (GitHub issues the
+Let's Encrypt certificate automatically, usually within an hour).
+
+## Repository layout
+
+`main` serves the live site via GitHub Pages (branch `main`, path `/`).
+The previous React portfolio is preserved on `archive/portfolio-2023`
+(source) and `archive/gh-pages-2023` (its built output).
