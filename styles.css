@@ -19,7 +19,7 @@
   --wrap: 1140px;
   --pad: clamp(1.375rem, 5vw, 4.5rem);
   --gap: clamp(2.25rem, 7vw, 6rem);
-  --sec-y: clamp(4.5rem, 11vw, 9.5rem);
+  --sec-y: clamp(3.75rem, 7.5vw, 6.5rem);
 
   color-scheme: light;
 }
@@ -133,12 +133,13 @@ a{ color:inherit; text-decoration:none; }
 
 /* ── Hero ─────────────────────────────────────────────── */
 
-.hero{ padding-top:clamp(7rem,16vh,11rem); padding-bottom:clamp(3rem,7vw,5.5rem); }
+.hero{ padding-top:clamp(6rem,12vh,8.5rem); padding-bottom:clamp(2.5rem,5vw,4rem); }
 
 .hero-in{
   display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  gap:var(--gap);
+  grid-template-columns:minmax(0,34rem) auto;
+  justify-content:space-between;
+  gap:clamp(2rem,5vw,4rem);
   align-items:start;
 }
 @media (max-width:900px){
@@ -151,7 +152,7 @@ a{ color:inherit; text-decoration:none; }
   text-transform:uppercase;
   letter-spacing:.17em;
   color:var(--muted);
-  margin-bottom:clamp(1.5rem,3vw,2.25rem);
+  margin-bottom:clamp(1rem,1.8vw,1.375rem);
 }
 .dot{
   width:5px; height:5px; border-radius:50%;
@@ -161,37 +162,37 @@ a{ color:inherit; text-decoration:none; }
 
 .hero-name{
   font-family:var(--serif);
-  font-size:clamp(3.1rem,8.6vw,6.25rem);
+  font-size:clamp(2.5rem,5.2vw,4.25rem);
   font-weight:300;
-  line-height:.96;
-  letter-spacing:-.028em;
-  margin-bottom:clamp(1.75rem,3.5vw,2.5rem);
+  line-height:1.02;
+  letter-spacing:-.025em;
+  margin-bottom:clamp(1.25rem,2.2vw,1.75rem);
 }
 
 .lead{
   font-family:var(--serif);
-  font-size:clamp(1.1875rem,1.9vw,1.5rem);
+  font-size:clamp(1.125rem,1.55vw,1.3125rem);
   font-weight:300;
-  line-height:1.55;
+  line-height:1.52;
   letter-spacing:-.012em;
   color:var(--ink-2);
-  max-width:34ch;
+  max-width:44ch;
 }
 .lead em{ font-style:italic; color:var(--ink); }
 
 .lead-sub{
-  margin-top:1.5rem;
+  margin-top:1.125rem;
   font-size:.9375rem;
-  line-height:1.78;
+  line-height:1.72;
   color:var(--muted);
-  max-width:46ch;
+  max-width:50ch;
 }
 
 /* link rows */
 .hero-links{
   display:flex; flex-wrap:wrap;
   gap:.5rem clamp(1.125rem,2.5vw,2rem);
-  margin-top:clamp(2.25rem,4.5vw,3rem);
+  margin-top:clamp(1.625rem,2.8vw,2.125rem);
   font-size:.8125rem;
   letter-spacing:.005em;
 }
@@ -218,10 +219,11 @@ a{ color:inherit; text-decoration:none; }
 .portrait{
   margin:0;
   justify-self:end;
-  align-self:center;
+  align-self:start;
+  margin-top:clamp(1.5rem,2.6vw,2.25rem);
 }
 .portrait img{
-  width:clamp(10rem,17vw,14rem);
+  width:clamp(8.5rem,13vw,11.5rem);
   aspect-ratio:1;
   object-fit:cover;
   border-radius:50%;
@@ -240,7 +242,7 @@ a{ color:inherit; text-decoration:none; }
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:1px;
-  margin-top:clamp(3.5rem,8vw,6rem);
+  margin-top:clamp(2.5rem,4.5vw,3.5rem);
   border-top:1px solid var(--line);
   background:var(--line-soft);
 }
