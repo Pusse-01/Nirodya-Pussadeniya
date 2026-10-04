@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can a Fly Learn the World with Causal-JEPA? — Nirodya Pussadeniya</title>
+<meta name="description" content="A 4,096-neuron connectome-constrained fly brain in a virtual dish with wind, an odour plume and a hunting spider. Can a self-supervised world model learn how that world works, and reuse it in worlds it never saw?">
+<meta name="author" content="Nirodya Pussadeniya">
+<link rel="canonical" href="https://nirodya.com/blog/fly-causal-jepa/">
+<meta name="theme-color" content="#fbfaf8">
+<script>document.documentElement.className="js";</script>
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nirodya Pussadeniya">
+<meta property="og:title" content="Can a Fly Learn the World with Causal-JEPA?">
+<meta property="og:description" content="Learning causal world models from connectome-constrained neural activity.">
+<meta property="og:url" content="https://nirodya.com/blog/fly-causal-jepa/">
+<meta property="og:image" content="https://nirodya.com/blog/fly-causal-jepa/featured-poster.jpg">
+<meta property="article:published_time" content="2026-10-01">
+<meta property="article:author" content="Nirodya Pussadeniya">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Can a Fly Learn the World with Causal-JEPA?">
+<meta name="twitter:description" content="Learning causal world models from connectome-constrained neural activity.">
+<meta name="twitter:image" content="https://nirodya.com/blog/fly-causal-jepa/featured-poster.jpg">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..500;1,6..72,200..400&family=Inter:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/blog.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BlogPosting",
+  "headline":"Can a Fly Learn the World with Causal-JEPA?",
+  "description":"Learning causal world models from connectome-constrained neural activity.",
+  "image":"https://nirodya.com/blog/fly-causal-jepa/featured-poster.jpg",
+  "datePublished":"2026-10-01",
+  "author":{"@type":"Person","name":"Nirodya Pussadeniya","url":"https://nirodya.com/"},
+  "publisher":{"@type":"Person","name":"Nirodya Pussadeniya","url":"https://nirodya.com/"},
+  "mainEntityOfPage":"https://nirodya.com/blog/fly-causal-jepa/"
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="nav-name" href="/"><span>Nirodya</span> Pussadeniya</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="/#research">Research</a>
+      <a href="/#publications">Publications</a>
+      <a href="/blog/">Writing</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<header class="article-head">
+  <div class="wrap">
+    <a class="back" href="/blog/"><span class="arrow" aria-hidden="true">&#8592;</span>All posts</a>
+    <p class="article-kicker"><time datetime="2026-10">October 2026</time><span>World models</span><span>22 min read</span></p>
+    <h1 class="article-title">Can a Fly Learn the World with Causal&#8209;JEPA?</h1>
+    <p class="article-dek">
+      We built a 4,096-neuron fly brain from connectome statistics and put it in a virtual dish with wind,
+      an odour plume, a light and a hunting spider. Then we asked whether a self-supervised world model
+      could learn how that world works from what the brain senses &mdash; and reuse that knowledge in
+      worlds it had never seen.
+    </p>
+    <p class="byline">
+      <span>Nirodya Pussadeniya</span><span class="sep">&middot;</span>
+      <span>Learning causal world models from connectome-constrained neural activity</span><span class="sep">&middot;</span>
+      <span>All results from one random seed</span>
+    </p>
+  </div>
+</header>
+
+<div class="wrap">
+  <figure class="fig">
+    <video src="featured.mp4" poster="featured-poster.jpg" autoplay loop muted playsinline
+           width="1280" height="720" aria-label="Causal-JEPA learning a world model across training checkpoints"></video>
+    <figcaption>
+      <b>Watch a world model learn.</b> The same moment of a fresh episode in T1 (wind and a spider together,
+      never seen in training), replayed at every saved training checkpoint. Dots show where Causal-JEPA
+      imagines the spider over the next 0.64&nbsp;s; the dashed line is where it really goes. As training
+      proceeds the imagined spider closes in on the real one (error 73&nbsp;&rarr;&nbsp;12&nbsp;mm with
+      perfect entity slots, violet; 53&nbsp;&rarr;&nbsp;23&nbsp;mm with slots read from the fly brain,
+      green), and the map of which entity it relies on settles onto the true causal links, from 2 of 5 at
+      the start to 4 of 5. The fly brain itself stays fixed.
+    </figcaption>
+  </figure>
+</div>
+
+<article class="article">
+  <div class="wrap grid">
+
+    <aside class="aside toc" aria-label="Contents">
+      <p class="toc-label">Contents</p>
+      <ol>
+        <li><a href="#s1">The question</a></li>
+        <li><a href="#s2">First principles</a></li>
+        <li><a href="#s3">What we assumed</a></li>
+        <li><a href="#s4">FlyWorld</a></li>
+        <li><a href="#s5">The brain</a></li>
+        <li><a href="#s6">First attempt</a></li>
+        <li><a href="#s7">Causal-JEPA</a></li>
+        <li><a href="#s8">Results</a></li>
+        <li><a href="#s9">Inference</a></li>
+        <li><a href="#s10">The unsolved step</a></li>
+        <li><a href="#s11">Conclusions</a></li>
+      </ol>
+    </aside>
+
+    <div class="body prose-long">
+
+      <section class="tldr">
+        <h2>The short version</h2>
+        <ul>
+          <li>Our first attempt, a JEPA with an explicit learned causal graph, <strong>failed in an instructive way</strong>. Its graph emptied out and its latent blocks became copies of one another. That failure pointed us toward Causal-JEPA.</li>
+          <li><strong>Causal-JEPA works in FlyWorld when the world is already split into entities.</strong> Given one slot per world factor it predicts 0.64&nbsp;s ahead far better than chance, performs worse when the world's mechanisms are scrambled as a real world model should, and recovers 4 of the 5 true causal links.</li>
+          <li><strong>The fly's own brain holds the information needed.</strong> Slots read linearly from the brain's neurons recover almost the same causal structure as the true world factors.</li>
+          <li><strong>Finding those entities without labels is the remaining challenge.</strong> Unsupervised slot attention over the brain's activity collapsed into six identical slots, and four attempted fixes failed to separate them.</li>
+        </ul>
+      </section>
+
+      <h2 id="s1"><span class="hn">01 &middot; The question</span>Can a brain learn a world model it can reuse?</h2>
+      <p>
+        An animal doesn't just react, it expects. A fly that has felt wind and smelt food knows the smell
+        comes from upwind, so when the wind turns it knows where the plume will go. That internal picture of
+        how things work is a <strong>world model</strong>. A good one predicts what happens next. A reusable
+        one keeps working when familiar parts are recombined &mdash; wind and a spider together, when the fly
+        has only ever met them separately.
+      </p>
+      <p>
+        A world model that is reusable in this way has to capture <em>causes</em>, not just correlations. It
+        has to know that the spider follows the fly, not the smell, even when the two always appear together.
+      </p>
+      <div class="callout">
+        <p class="co-label">Hypothesis</p>
+        <p>
+          A self-supervised, causally structured world model trained on a connectome-constrained fly brain's
+          experience (1) predicts well in recombined worlds it never saw, and (2) has internal dependencies
+          that match the simulator's true causal graph.
+        </p>
+      </div>
+      <p>
+        The second prediction is the strong one. A model can transfer well just by being a good predictor,
+        but it can't recover the true causal graph by accident.
+      </p>
+
+      <h2 id="s2"><span class="hn">02 &middot; First principles</span>What the pieces are</h2>
+
+      <h3>World models and self-supervised learning</h3>
+      <p>
+        A world model maps what an agent senses now to what it expects next. It needs no labels, because the
+        future itself is the target: the agent sees frames \(o_{1..t}\), predicts something about
+        \(o_{t+1..t+H}\), and is corrected when the future arrives.
+      </p>
+
+      <h3>Predict pixels, or predict meaning?</h3>
+      <p>
+        Reconstruction models predict every raw sensor value of the future, including pure noise. A
+        <strong>JEPA</strong> (joint-embedding predictive architecture; LeCun 2022, Assran et al. 2023) first
+        encodes each observation into a compact latent vector and predicts future latents. The model chooses
+        what to keep, so it can ignore noise. That freedom is also a risk: a model that chooses what to keep
+        can discard what matters, or collapse to a constant that is trivially predictable. JEPAs prevent
+        collapse with a slowly updated target encoder and variance/covariance penalties (VICReg).
+      </p>
+
+      <h3>Causality in four ideas</h3>
+      <ul>
+        <li><strong>Structural causal model.</strong> Every variable has its own mechanism, \(x_i := f_i(\mathrm{pa}(x_i), \varepsilon_i)\), computed from its parents and noise.</li>
+        <li><strong>Causal graph.</strong> An arrow \(j \to i\) whenever \(x_j\) is an input to \(f_i\).</li>
+        <li><strong>Intervention</strong> \(do(x_j := c)\): replace one mechanism, like switching a fan off. Correlations can't predict what that does; a causal model can.</li>
+        <li><strong>Sparse mechanism shift</strong> (Sch&ouml;lkopf et al. 2021): when the world changes, usually only a few mechanisms change. A model made of separate mechanisms can adapt by changing only those. That is what makes it reusable.</li>
+      </ul>
+
+      <h3>Objects first</h3>
+      <p>
+        Recovering a world's true factors from raw observations is impossible in general without extra
+        assumptions (Locatello et al. 2019). One powerful assumption is that the world is made of
+        <strong>objects</strong>. Slot-based encoders such as Slot Attention split a scene into a set of
+        entity vectors, one per object. Once the world is a set of entities, &ldquo;which entity affects
+        which&rdquo; becomes a question a predictor can answer.
+      </p>
+
+      <h3>Connectome-constrained brains</h3>
+      <p>
+        FlyWire mapped an entire adult fruit-fly brain: about 139,000 neurons and 55 million synapses
+        (Dorkenwald et al. 2024). Lappalainen et al. (2024) showed that a network whose wiring and synapse
+        signs are fixed from a connectome, with only its physiology learned, predicts real neural responses.
+        We use the same constraint.
+      </p>
+
+      <h2 id="s3"><span class="hn">03 &middot; What we assumed</span>Assumptions, stated up front</h2>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Assumption</th><th>Why</th><th>What it could hide</th></tr></thead>
+          <tbody>
+            <tr><th>Five factor blocks, known graph</th><td>Gives a ground-truth answer to score against</td><td>Real worlds are messier; success here is necessary, not sufficient</td></tr>
+            <tr><th>Surrogate connectome</th><td>Keeps the fly's regional structure at a trainable size</td><td>It is fly-like, not a real fly brain</td></tr>
+            <tr><th>Wiring and signs fixed</th><td>The defining constraint of connectome-constrained models</td><td>Real brains also rewire</td></tr>
+            <tr><th>Linear read-outs measure content</th><td>Simple and comparable</td><td>Non-linear content is missed, so numbers are lower bounds</td></tr>
+            <tr><th>Persistence is the baseline</th><td>Zero means no better than doing nothing</td><td>Nearly static factors give noisy scores</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="s4"><span class="hn">04 &middot; The world</span>FlyWorld: a world with a known answer</h2>
+      <p>
+        FlyWorld is a 100&nbsp;mm dish simulated at 50&nbsp;Hz in 12-second episodes. It is written directly
+        as a structural causal model, so its true causal graph is known exactly. It has five factor blocks:
+        <strong>wind</strong> (a 2D vector drifting toward a mean), <strong>odour</strong> (a plume blown
+        downwind from a food drop, so its shape depends on the wind), <strong>predator</strong> (a jumping
+        spider that wanders, stalks the fly within 30&nbsp;mm and lunges within 7&nbsp;mm),
+        <strong>light</strong> (slow drift) and <strong>self</strong> (the fly's body, moved by its own
+        commands and pushed by wind).
+      </p>
+      <p>
+        That gives <strong>6 true edges out of 20 possible</strong>: the plume depends on the wind, the
+        spider chases the fly, and the fly's body is affected by everything. There is also a deliberate
+        <strong>trap</strong>. Odour and predator are correlated, because the fly goes to the food and the
+        spider follows the fly &mdash; but the spider's rule never reads the odour.
+      </p>
+
+      <h3>What the fly senses: 108 channels</h3>
+      <ul>
+        <li><strong>Eyes:</strong> 2 &times; 48 brightness columns. Ambient light sets the background of all 96, and a spider is a dark patch. No looming signal is given; the brain has to notice the patch growing.</li>
+        <li><strong>Antennae:</strong> 2 &times; 4 odour channels.</li>
+        <li><strong>Johnston's organs:</strong> 2 wind channels, measuring the wind felt by the moving fly.</li>
+        <li><strong>Halteres:</strong> turning rate and speed.</li>
+      </ul>
+
+      <h3>Why the fly's behaviour is scripted</h3>
+      <p>
+        The fly moves by a hand-written policy: up the odour gradient, into the wind, away from looming
+        shapes, plus a slowly drifting random wander. The spider is a state machine. We did this on purpose.
+        This study asks whether a brain can learn a model of its world from what it senses, and that question
+        is separate from learning to act. A fixed policy gives identical data for every model, interesting
+        situations from the first episode, and a clean separation of perception from control. The fly's
+        actions are still given to the world model as inputs, so it learns how actions change what happens
+        next. Closing that loop is the natural next step.
+      </p>
+
+      <h3>Six test worlds</h3>
+      <p>
+        Models train in <strong>world A</strong>, where wind and spiders never appear together, and are then
+        frozen and tested in six worlds. Two are calibration cells: T0 should score well, and T5 should score
+        below T1.
+      </p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>World</th><th>What changes</th><th>What it tests</th></tr></thead>
+          <tbody>
+            <tr><th>T0 null</th><td>New random seeds only</td><td>Calibration: should do well</td></tr>
+            <tr><th>T1 composition</th><td>Wind and a spider together</td><td>Reusing mechanisms in a new combination</td></tr>
+            <tr><th>T2 parameters</th><td>Spider 2&times; faster, wind reversed, longer plume</td><td>Mechanisms as functions of their settings</td></tr>
+            <tr><th>T3 two predators</th><td>Two spiders</td><td>Reusing one mechanism twice</td></tr>
+            <tr><th>T4 antenna lesion</th><td>Right antenna silenced</td><td>A dead input</td></tr>
+            <tr><th>T5 scrambled</th><td>Mechanisms read the wrong parents</td><td>Calibration: a model that learned mechanisms must get worse</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure class="fig">
+        <picture>
+          <source srcset="six-worlds.webp" type="image/webp">
+          <img src="six-worlds.jpg" width="1280" height="860" loading="lazy" decoding="async"
+               alt="Six dish diagrams, one fresh episode in each test world, showing the fly's path, the spider's path and the plume">
+        </picture>
+        <figcaption>One fresh episode in each test world, as the simulator sees it from above. The brain never sees this view: it receives only the 108 sensor channels.</figcaption>
+      </figure>
+
+      <h2 id="s5"><span class="hn">05 &middot; The brain</span>A connectome-constrained network</h2>
+      <p>
+        The brain has 4,096 neurons wired by a surrogate connectome &mdash; a graph generated to match
+        FlyWire's published statistics, such as region sizes, connection densities and the share of
+        inhibitory neurons. As in a real fly, most input neurons serve vision (about 1,227, against 73 for
+        wind). Each neuron's voltage leaks toward rest and is pushed by its inputs:
+      </p>
+      <p>
+        $$v_i \leftarrow v_i + \frac{\Delta t}{\tau_i}\Big( -(v_i - v^{\text{rest}}_i) + g\sum_j A_{ij}\, r_j + w^{\text{in}}_i\, s_{c(i)} + b_i \Big), \qquad r_i = \min\big(\mathrm{softplus}(v_i-\theta_i),\, r_{\max}\big)$$
+      </p>
+      <p>
+        Here \(r_i\) is the firing rate, \(\tau_i\) a time constant, \(\theta_i\) a threshold, and
+        \(s_{c(i)}\) the sensory channel wired to neuron \(i\) if it is an input neuron. Connections
+        \(A_{ij}\) exist only on connectome edges, and their signs are fixed by <strong>Dale's law</strong>:
+        a neuron is either excitatory or inhibitory, never both. Training may tune strengths, time constants
+        and thresholds, but never which neurons connect or the sign of any synapse.
+      </p>
+
+      <h2 id="s6"><span class="hn">06 &middot; First attempt</span>Graph JEPA, and why it failed</h2>
+      <p>
+        Our first model was our own design, which we call <strong>Graph JEPA</strong>: a JEPA whose latent is
+        split into five blocks (one hoped-for block per factor), with an explicit learned causal graph
+        between the blocks. One shared mechanism updates each block from its parents. Edges are sampled as
+        hard 0/1 choices and pay an L1 penalty, so only edges that help prediction should survive.
+        Everything, the brain's readout included, was trained end to end.
+      </p>
+      <p>It failed in three ways:</p>
+      <ol class="num">
+        <li><strong>The graph emptied.</strong> All 20 candidate edges started at 0.27 and decayed together to 0.02. None ever pulled away from the rest.</li>
+        <li><strong>The blocks became copies.</strong> All five ended up encoding mostly light and the fly's own motion. No block held wind, odour or the spider on its own.</li>
+        <li><strong>It wasn't learning mechanisms.</strong> It predicted as well in the scrambled world T5 (skill 0.144) as in T1 (0.146).</li>
+      </ol>
+      <p>
+        A series of one-change-at-a-time diagnostic runs showed why. Holding light constant made the blocks
+        copy the next-easiest factors instead. Penalising correlation between blocks didn't separate them. We
+        found and fixed a real wiring bug &mdash; the wind sensor reached no neuron, because haltere inputs
+        had overwritten the wind input neurons &mdash; which put wind into the brain but changed nothing
+        else. Most tellingly, hard-wiring every intervention to its correct block (<em>oracle routing</em>)
+        still produced copies, and even supervising each block with its factor's labels produced no graph
+        edges.
+      </p>
+      <div class="callout">
+        <p class="co-label">The lesson</p>
+        <p>
+          The causal machinery sat downstream of a latent that was learned only by prediction, and five
+          copies of the easiest signal predict themselves perfectly. With no distinct entities, there is
+          nothing for a causal graph to connect. The representation has to be split into entities first.
+        </p>
+      </div>
+
+      <h2 id="s7"><span class="hn">07 &middot; Causal-JEPA</span>An object-centric causal world model</h2>
+      <p>
+        Causal-JEPA (Nam, Le Lidec, Maes, LeCun and Balestriero, ICML 2026) learns a world model over a set
+        of <strong>frozen entity slots</strong>. There is no explicit graph. Instead, causal structure is
+        forced in by <strong>masking whole entities</strong>.
+      </p>
+
+      <h3>How it learns</h3>
+      <p>
+        Each frame is a set of slot tokens, one per entity, plus two auxiliary tokens: the fly's action and
+        its proprioception. The model sees 5 history frames and predicts 3 future frames, with a
+        bidirectional transformer attending over every token of every frame. Two kinds of token are hidden:
+        all future slot tokens (actions stay visible, as a planner would supply them), and the whole history
+        of \(|M|\) randomly chosen entities, except their first frame, which is kept as an
+        <em>identity anchor</em>. A hidden token is replaced by a projection of that entity's anchor state
+        plus a time embedding, and the loss is the squared error on every hidden token against the frozen
+        slots themselves.
+      </p>
+      <div class="callout">
+        <p class="co-label">Why hiding an entity's past matters</p>
+        <p>
+          If you can see an entity's past, the easiest way to predict its present is to extrapolate it. That
+          shortcut is exactly what emptied Graph JEPA's graph. Hide the past, and the only way to reconstruct
+          the entity is to use the other entities that influence it &mdash; so the model is pushed to learn
+          interactions. With \(|M| = 0\) it is the paper's OC-JEPA baseline: object-centric, but with no
+          causal pressure.
+        </p>
+      </div>
+
+      <h3>Three stages: where do the slots come from?</h3>
+      <p>
+        FlyWorld's brain sees no images, so we built the slots three ways, from easiest to hardest. This
+        separates &ldquo;can Causal-JEPA learn the structure?&rdquo; from &ldquo;can we find the
+        entities?&rdquo;
+      </p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Stage</th><th>Slot source</th><th>What it tests</th></tr></thead>
+          <tbody>
+            <tr><th>A &middot; oracle</th><td>The simulator's true factors, one slot per block</td><td>Upper bound: perfect entities</td></tr>
+            <tr><th>B &middot; brain, read out</th><td>Each factor read out of all 4,096 neurons by one linear map fitted on world A, then frozen</td><td>Is the information in the brain, and is it usable?</td></tr>
+            <tr><th>C &middot; brain, unsupervised</th><td>Slot attention over 39 groups of neurons, trained without labels, then frozen</td><td>Entity discovery from neural activity alone</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>How we score it</h3>
+      <p>
+        <strong>Imagination skill</strong> compares the model's imagined future with the guess that nothing
+        moves (persistence). One linear decoder, fitted once in world A, translates slots into the 17 true
+        world-factor numbers:
+      </p>
+      <p>$$\text{skill} = 1-\frac{\lVert f_{t+16} - M\hat s_{t+16}\rVert^2}{\lVert f_{t+16} - M s_t\rVert^2}$$</p>
+      <p>
+        1 is perfect, 0 is no better than &ldquo;the world froze&rdquo;. To read a causal graph out of a
+        model that has no explicit graph, we hide entity \(i\)'s history, then also hide entity \(j\)'s, and
+        measure how much worse entity \(i\) is predicted:
+      </p>
+      <p>$$D_{ij} = \frac{\mathrm{err}(i \mid \text{hide } i, j) - \mathrm{err}(i \mid \text{hide } i)}{\mathrm{err}(i \mid \text{hide } i)}$$</p>
+      <p>
+        A large \(D_{ij}\) means the model relies on \(j\) to reconstruct \(i\). The transformer is
+        bidirectional, so it can't tell cause from effect. The fair test is therefore whether large values
+        fall on the 5 truly linked pairs out of 10, scored by AUC (0.5 is chance).
+      </p>
+
+      <h2 id="s8"><span class="hn">08 &middot; Results</span>It works when the world is split into entities</h2>
+
+      <div class="chart" role="img" aria-label="Imagination skill by world and stage. Stage A oracle slots reach 0.63 in world A and 0.23 in T1; stage B brain slots reach 0.25 and 0.12; stage C unsupervised slots hover near 0.1.">
+        <div class="chart-row"><span class="k">world A</span><span class="track"><span class="bar" style="width:100%"></span></span><span class="v">0.63</span></div>
+        <div class="chart-row"><span class="k">T0 null</span><span class="track"><span class="bar" style="width:98%"></span></span><span class="v">0.62</span></div>
+        <div class="chart-row"><span class="k">T1 composition</span><span class="track"><span class="bar" style="width:37%"></span></span><span class="v">0.23</span></div>
+        <div class="chart-row"><span class="k">T2 parameters</span><span class="track"><span class="bar" style="width:41%"></span></span><span class="v">0.26</span></div>
+        <div class="chart-row"><span class="k">T3 two predators</span><span class="track"><span class="bar" style="width:32%"></span></span><span class="v">0.20</span></div>
+        <div class="chart-row"><span class="k">T4 lesion</span><span class="track"><span class="bar" style="width:41%"></span></span><span class="v">0.26</span></div>
+        <div class="chart-row"><span class="k">T5 scrambled</span><span class="track"><span class="bar" style="width:22%"></span></span><span class="v">0.14</span></div>
+        <p class="chart-legend"><span>Stage A &mdash; oracle slots, imagination skill (|M| = 1)</span></p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Stage, masking</th><th>world A</th><th>T0</th><th>T1</th><th>T5</th><th>T1 &minus; T5</th><th>Mechanisms?</th><th>Pair AUC</th><th>Top-5</th></tr></thead>
+          <tbody>
+            <tr><th>A, |M| = 0</th><td class="num">0.644</td><td class="num">0.639</td><td class="num">0.305</td><td class="num">0.253</td><td class="num">+0.052</td><td>yes</td><td class="num">0.76</td><td class="num">3/5</td></tr>
+            <tr><th>A, |M| = 1</th><td class="num">0.626</td><td class="num">0.619</td><td class="num">0.232</td><td class="num">0.143</td><td class="num hit">+0.089</td><td>yes</td><td class="num hit">0.80</td><td class="num">4/5</td></tr>
+            <tr><th>A, |M| = 2</th><td class="num">0.626</td><td class="num">0.614</td><td class="num">0.308</td><td class="num">0.247</td><td class="num">+0.061</td><td>yes</td><td class="num">0.76</td><td class="num">4/5</td></tr>
+            <tr><th>B, |M| = 0</th><td class="num">0.265</td><td class="num">0.359</td><td class="num">0.126</td><td class="num">0.078</td><td class="num">+0.048</td><td>yes</td><td class="num">0.64</td><td class="num">3/5</td></tr>
+            <tr><th>B, |M| = 1</th><td class="num">0.251</td><td class="num">0.322</td><td class="num">0.115</td><td class="num">0.035</td><td class="num hit">+0.081</td><td>yes</td><td class="num hit">0.84</td><td class="num">4/5</td></tr>
+            <tr><th>B, |M| = 2</th><td class="num">0.251</td><td class="num">0.326</td><td class="num">0.130</td><td class="num">0.078</td><td class="num">+0.053</td><td>yes</td><td class="num">0.76</td><td class="num">3/5</td></tr>
+            <tr><th>C, |M| = 1</th><td class="num">0.111</td><td class="num">&minus;0.013</td><td class="num">0.095</td><td class="num">0.063</td><td class="num">+0.032</td><td>void</td><td colspan="2">slots identical</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        &ldquo;Mechanisms?&rdquo; asks whether the model got worse in the scrambled world T5 than in T1, by
+        more than 0.02. A model that learned how the world works must. One that learned surface statistics
+        won't notice.
+      </p>
+
+      <div class="chart" role="img" aria-label="Scrambled-world test across models. Plain JEPA and every Graph JEPA variant fall below the pass line; Causal-JEPA passes in all three stages.">
+        <div class="chart-row"><span class="k">plain JEPA</span><span class="track"><span class="bar neg" style="width:38%"></span></span><span class="v">&minus;0.075</span></div>
+        <div class="chart-row"><span class="k">Graph JEPA</span><span class="track"><span class="bar" style="width:1%"></span></span><span class="v">+0.002</span></div>
+        <div class="chart-row"><span class="k">&hellip; wiring fixed</span><span class="track"><span class="bar neg" style="width:22%"></span></span><span class="v">&minus;0.043</span></div>
+        <div class="chart-row"><span class="k">&hellip; oracle routing</span><span class="track"><span class="bar neg" style="width:11%"></span></span><span class="v">&minus;0.021</span></div>
+        <div class="chart-row"><span class="k">&hellip; + factor labels</span><span class="track"><span class="bar neg" style="width:40%"></span></span><span class="v">&minus;0.079</span></div>
+        <div class="chart-row"><span class="k">C-JEPA stage A</span><span class="track"><span class="bar" style="width:45%"></span></span><span class="v">+0.088</span></div>
+        <div class="chart-row"><span class="k">C-JEPA stage B</span><span class="track"><span class="bar" style="width:41%"></span></span><span class="v">+0.081</span></div>
+        <div class="chart-row"><span class="k">C-JEPA stage C</span><span class="track"><span class="bar" style="width:16%"></span></span><span class="v">+0.032</span></div>
+        <p class="chart-legend"><span>passes (T1 &minus; T5 above +0.02)</span><span class="neg">fails</span></p>
+      </div>
+      <p>
+        A model must do <em>worse</em> in the scrambled world. Plain JEPA and every Graph JEPA variant fail,
+        even with oracle routing and factor labels. Causal-JEPA passes with oracle slots and with slots read
+        out of the brain. Stage C's apparent pass is meaningless, because its slots are copies.
+      </p>
+
+      <div class="matrix-grid">
+        <div>
+          <p class="mx-label">True graph (child &larr; parent)</p>
+          <table class="matrix">
+            <thead><tr><th></th><th>wind</th><th>odour</th><th>pred</th><th>light</th><th>self</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">wind</th><td>&middot;</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><th scope="row">odour</th><td class="true">1</td><td>&middot;</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><th scope="row">pred</th><td>0</td><td>0</td><td>&middot;</td><td>0</td><td class="true">1</td></tr>
+              <tr><th scope="row">light</th><td>0</td><td>0</td><td>0</td><td>&middot;</td><td>0</td></tr>
+              <tr><th scope="row">self</th><td class="true">1</td><td class="true">1</td><td class="true">1</td><td class="true">1</td><td>&middot;</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p class="mx-label">Stage B, |M| = 1 &middot; influence</p>
+          <table class="matrix">
+            <thead><tr><th></th><th>wind</th><th>odour</th><th>pred</th><th>light</th><th>self</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">wind</th><td>&middot;</td><td>0.46</td><td>0.04</td><td>0.03</td><td>0.28</td></tr>
+              <tr><th scope="row">odour</th><td class="true">0.41</td><td>&middot;</td><td>0.05</td><td>0.01</td><td>0.15</td></tr>
+              <tr><th scope="row">pred</th><td>0.04</td><td>0.06</td><td>&middot;</td><td>0.03</td><td class="true">0.16</td></tr>
+              <tr><th scope="row">light</th><td>0.02</td><td>0.01</td><td>0.03</td><td>&middot;</td><td>0.03</td></tr>
+              <tr><th scope="row">self</th><td class="true">0.05</td><td class="true">0.05</td><td class="true">0.17</td><td>0.02</td><td>&middot;</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p>
+        Rows are the entity being reconstructed; columns the entity whose history is also hidden; true pairs
+        outlined. Stage B ranks 4 of the 5 true pairs on top &mdash; wind&ndash;odour, wind&ndash;self,
+        predator&ndash;self and odour&ndash;self &mdash; missing only light&ndash;self. In stage C every value
+        is about the same, because every slot is the same.
+      </p>
+
+      <p><strong>Three findings stand out.</strong></p>
+      <ol class="num">
+        <li><strong>The scrambled-world test passes for the first time.</strong> No version of Graph JEPA ever managed it.</li>
+        <li><strong>The brain holds usable structure.</strong> Stage B's slots, read linearly out of an untrained connectome brain, recover the same interactions as the true factors.</li>
+        <li><strong>Masking adds causal pressure.</strong> \(|M| = 1\) gives the largest T1&nbsp;&minus;&nbsp;T5 drop and the best pair AUC in both stages, at a small cost in world-A skill.</li>
+      </ol>
+
+      <div class="callout">
+        <p class="co-label">Caveats on the good news</p>
+        <p>
+          Direction isn't recovered, by design: the model learns which entities interact, not which causes
+          which. Transfer is still limited &mdash; stage A falls from 0.62 in T0 to 0.23&ndash;0.31 in T1.
+          And stage B used labels to build its slots, so it shows the information is in the brain, not that
+          it can be found without supervision.
+        </p>
+      </div>
+
+      <h2 id="s9"><span class="hn">09 &middot; Inference</span>Watching Causal-JEPA imagine</h2>
+      <p>
+        To see what the numbers mean, we ran the frozen \(|M| = 1\) models on fresh episodes they had never
+        seen, in worlds they were never trained in. At every frame, each model takes the last 5 frames of
+        slots and the fly's upcoming actions, imagines the next 0.64&nbsp;s, and we decode that imagination
+        back into the dish.
+      </p>
+      <div class="callout">
+        <p class="co-label">How to read the videos</p>
+        <p>
+          <strong>Left</strong>, the dish from above: the plume (orange), food (green), wind (grey arrow),
+          the fly (blue arrow) and the spider (red). <strong>Dashed black line</strong>: where the spider
+          really goes over the next 0.64&nbsp;s. <strong>Coloured dots</strong>: where each model imagines it
+          will be, growing larger further ahead &mdash; violet is stage A (oracle slots), green is stage B
+          (slots read from the brain). <strong>Top right</strong>: what the brain receives from its eyes.
+          <strong>Middle and bottom right</strong>: true spider distance and sideways wind, against what each
+          model imagined 0.64&nbsp;s earlier.
+        </p>
+      </div>
+
+      <figure class="fig">
+        <video src="t1-composition.mp4" poster="t1-composition-poster.jpg" controls loop muted playsinline
+               preload="none" width="1280" height="720" aria-label="Causal-JEPA at inference in world T1"></video>
+        <figcaption>
+          <b>T1 &mdash; wind and a spider together</b>, a combination never seen in training. Stage A's
+          imagined distance follows the spider's approach; across all T1 clips its spider prediction clearly
+          beats persistence (skill 0.37, against 0.16 for stage B). Stage B's imagined spider is noisier and
+          pulled toward a middle distance, because the brain read-out holds the spider less cleanly.
+        </figcaption>
+      </figure>
+
+      <figure class="fig">
+        <video src="t3-two-predators.mp4" poster="t3-two-predators-poster.jpg" controls loop muted playsinline
+               preload="none" width="1280" height="720" aria-label="Causal-JEPA at inference in world T3"></video>
+        <figcaption>
+          <b>T3 &mdash; two spiders.</b> The slots describe only the nearest spider, so the model has to track
+          whichever one is closest. Stage A tracks the nearest spider's distance well in this episode, though
+          training never showed two spiders.
+        </figcaption>
+      </figure>
+
+      <figure class="fig">
+        <video src="t5-scrambled.mp4" poster="t5-scrambled-poster.jpg" controls loop muted playsinline
+               preload="none" width="1280" height="720" aria-label="Causal-JEPA at inference in world T5"></video>
+        <figcaption>
+          <b>T5 &mdash; scrambled mechanisms</b>: here the spider chases the food, not the fly. A model that
+          learned &ldquo;spiders chase flies&rdquo; should be wrong here, and that is the point. Across all
+          T5 clips, spider prediction is worse than in T1 (0.37&nbsp;&rarr;&nbsp;0.27 for stage A,
+          0.16&nbsp;&rarr;&nbsp;&minus;0.02 for stage B) &mdash; the drop a model that learned how spiders
+          behave should show.
+        </figcaption>
+      </figure>
+
+      <h2 id="s10"><span class="hn">10 &middot; The unsolved step</span>Finding entities without labels</h2>
+      <p>
+        Unsupervised slot attention over the brain's activity produced <strong>six identical slots</strong>:
+        light 0.98, self 0.63, odour 0.31, predator 0.28, wind 0.20 &mdash; the same mixture in every slot.
+        We tried four fixes in parallel.
+      </p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Fix</th><th>Idea</th><th>Recon. error</th><th>Specificity</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr><th>Remove common mode</th><td>Subtract the shared components from every neuron group</td><td class="num">0.32</td><td class="num">&minus;0.43</td><td>No change</td></tr>
+            <tr><th>Linear decoder</th><td>A weaker decoder, so one slot can't rebuild everything</td><td class="num">0.96</td><td class="num">&minus;0.41</td><td>Too weak to learn</td></tr>
+            <tr><th>3&times; longer training</th><td>12,000 steps instead of 4,000</td><td class="num">0.18</td><td class="num">&minus;0.43</td><td>Better reconstruction, still copies</td></tr>
+            <tr><th>All three</th><td>Combined</td><td class="num">0.91</td><td class="num">&minus;0.41</td><td>Still copies</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Specificity measures whether each slot holds its own factor and not the others. Positive means
+        separated; negative means copies. One run looked like a success, with the linear decoder scoring 0.54
+        in T1. It isn't one: its T0 skill is only 0.08, its graph is at chance, and a model with identical
+        slots can't genuinely do better in a new world than in the one it trained on.
+      </p>
+      <div class="callout">
+        <p class="co-label">Why slot attention fails on brain activity</p>
+        <p>
+          Slot attention finds objects by grouping input tokens, as in an image where a spider occupies some
+          patches and the background others. Groups of neurons don't divide up that way. Every group carries
+          a mixture of light, self-motion, odour and the rest &mdash; mixed selectivity. With no grouping to
+          find, the cheapest solution is for every slot to summarise everything.
+        </p>
+      </div>
+
+      <h2 id="s11"><span class="hn">11 &middot; Conclusions</span>What we learned</h2>
+      <div class="callout">
+        <p class="co-label">Verdict</p>
+        <p>
+          Causal-JEPA can learn a causal, partly reusable world model of FlyWorld from a fly brain's
+          activity, <em>if something first splits that activity into entities</em>. With oracle or brain-read
+          slots it passed the scrambled-world test and recovered most of the true interactions. Without
+          labels, nothing we tried split the brain's activity into entities.
+        </p>
+      </div>
+      <ul>
+        <li><strong>Entities come first.</strong> Our explicit-graph model failed because its latent never separated into entities, and no causal machinery downstream could fix that.</li>
+        <li><strong>Entity masking is a workable causal signal.</strong> Hiding an entity's past forces the model to use the entities that influence it, and the dependencies it learns line up with the true graph.</li>
+        <li><strong>The connectome brain carries the information.</strong> A linear read-out of its neurons gives slots good enough for causal learning.</li>
+        <li><strong>Unsupervised entity discovery from neural activity is the open problem.</strong> Neurons mix many factors, so slot attention has no grouping to find. The split has to come from somewhere else.</li>
+      </ul>
+
+      <h3>Next steps</h3>
+      <ol class="num">
+        <li>Slot attention on <strong>raw sensory channels</strong> rather than neurons. There, entities really are localised: a spider covers some eye columns, and wind has its own channels.</li>
+        <li><strong>Close the loop.</strong> Let the brain's own outputs drive the fly, and use the world model's imagination to choose actions, so the fly learns by doing.</li>
+        <li><strong>Interventions that shape the encoder</strong>, so entity separation can be learned from experiment rather than given.</li>
+      </ol>
+
+      <footer class="article-foot">
+        <p class="refs-label">References</p>
+        <p>
+          Nam, Le Lidec, Maes, LeCun and Balestriero 2026, <em>Causal-JEPA</em> (ICML) &middot;
+          Dorkenwald et al. 2024 and Schlegel et al. 2024 (FlyWire) &middot;
+          Lappalainen et al. 2024 (connectome-constrained networks) &middot;
+          LeCun 2022 (<em>A path towards autonomous machine intelligence</em>) &middot;
+          Assran et al. 2023 (I-JEPA) &middot; Bardes et al. 2022 (VICReg) &middot;
+          Sch&ouml;lkopf et al. 2021 (<em>Toward causal representation learning</em>) &middot;
+          Locatello et al. 2019 and 2020 (disentanglement; Slot Attention).
+        </p>
+        <p>All results come from a single random seed.</p>
+      </footer>
+
+    </div>
+  </div>
+</article>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p>&copy; <span id="yr">2026</span> Nirodya Pussadeniya</p>
+    <p><a href="/">nirodya.com</a></p>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA==" crossorigin="anonymous"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" crossorigin="anonymous"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+</body>
+</html>

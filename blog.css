@@ -1,0 +1,342 @@
+/* ============================================================
+   nirodya.com — blog
+   Extends styles.css; load it after.
+   ============================================================ */
+
+/* ── Blog index ───────────────────────────────────────── */
+
+.page-head{ padding-top:clamp(7rem,14vh,9.5rem); padding-bottom:clamp(2rem,4vw,3rem); }
+.page-head .display{ margin-bottom:1.25rem; }
+.page-head .intro{ max-width:46ch; }
+
+/* ── Article header ───────────────────────────────────── */
+
+.article-head{
+  padding-top:clamp(6.5rem,13vh,9rem);
+  padding-bottom:clamp(2rem,4vw,2.75rem);
+}
+.back{
+  display:inline-block;
+  font-size:.75rem; letter-spacing:.02em; color:var(--muted);
+  margin-bottom:clamp(1.75rem,3.5vw,2.5rem);
+  transition:color .3s ease;
+}
+.back:hover{ color:var(--accent); }
+.back .arrow{ display:inline-block; margin-right:.4em; transition:transform .35s cubic-bezier(.2,.7,.2,1); }
+.back:hover .arrow{ transform:translateX(-3px); }
+
+.article-kicker{
+  display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .875rem;
+  font-size:.625rem; text-transform:uppercase; letter-spacing:.16em;
+  color:var(--faint); margin-bottom:1.125rem;
+}
+.article-title{
+  font-family:var(--serif);
+  font-size:clamp(2rem,4.4vw,3.375rem);
+  font-weight:300;
+  line-height:1.08;
+  letter-spacing:-.025em;
+  text-wrap:balance;
+  max-width:19ch;
+  margin-bottom:clamp(1rem,2vw,1.5rem);
+}
+.article-dek{
+  font-family:var(--serif);
+  font-size:clamp(1.0625rem,1.5vw,1.25rem);
+  font-weight:300;
+  line-height:1.6;
+  letter-spacing:-.01em;
+  color:var(--ink-2);
+  max-width:56ch;
+}
+.byline{
+  display:flex; flex-wrap:wrap; gap:.4rem .75rem;
+  margin-top:clamp(1.5rem,2.6vw,2rem);
+  padding-top:1.125rem;
+  border-top:1px solid var(--line-soft);
+  font-size:.75rem; color:var(--muted); letter-spacing:.01em;
+}
+.byline .sep{ color:var(--faint); }
+
+/* ── Article body ─────────────────────────────────────── */
+
+.article{ padding-bottom:clamp(4rem,8vw,7rem); }
+
+.toc{ position:sticky; top:7rem; }
+.toc-label{
+  font-size:.625rem; text-transform:uppercase; letter-spacing:.16em;
+  color:var(--faint); margin-bottom:.875rem;
+}
+.toc ol{ counter-reset:toc; }
+.toc li{ margin-bottom:.5rem; }
+.toc a{
+  display:block;
+  font-size:.75rem;
+  line-height:1.45;
+  color:var(--muted);
+  padding-left:1.625rem;
+  position:relative;
+  transition:color .3s ease;
+}
+.toc a::before{
+  counter-increment:toc;
+  content:counter(toc,decimal-leading-zero);
+  position:absolute; left:0; top:0;
+  font-size:.5625rem; letter-spacing:.1em; color:var(--faint);
+  line-height:1.9;
+  transition:color .3s ease;
+}
+.toc a:hover,
+.toc a.active{ color:var(--ink); }
+.toc a.active::before{ color:var(--accent); }
+@media (max-width:900px){
+  .toc{ display:none; }
+}
+
+.prose-long{ max-width:38rem; min-width:0; }
+.prose-long > h2{
+  font-family:var(--serif);
+  font-size:clamp(1.5rem,2.4vw,1.9375rem);
+  font-weight:400;
+  line-height:1.22;
+  letter-spacing:-.02em;
+  margin-top:clamp(3rem,5.5vw,4.25rem);
+  margin-bottom:1rem;
+  scroll-margin-top:6rem;
+  text-wrap:balance;
+}
+.prose-long > h2 .hn{
+  display:block;
+  font-family:var(--sans);
+  font-size:.625rem; font-weight:400;
+  text-transform:uppercase; letter-spacing:.16em;
+  color:var(--faint);
+  margin-bottom:.625rem;
+}
+.prose-long > h3{
+  font-family:var(--serif);
+  font-size:1.1875rem;
+  font-weight:400;
+  letter-spacing:-.015em;
+  line-height:1.35;
+  margin-top:2.25rem;
+  margin-bottom:.75rem;
+}
+.prose-long p{
+  font-size:1rem;
+  line-height:1.78;
+  color:var(--ink-2);
+  text-wrap:pretty;
+}
+.prose-long p + p{ margin-top:1.125rem; }
+.prose-long strong{ font-weight:500; color:var(--ink); }
+.prose-long em{ font-style:italic; }
+.prose-long a:not(.plain){
+  color:var(--accent);
+  background-image:linear-gradient(var(--accent),var(--accent));
+  background-repeat:no-repeat; background-position:0 100%; background-size:100% 1px;
+  transition:background-size .4s ease;
+}
+.prose-long a:not(.plain):hover{ background-size:100% 1.5px; }
+.prose-long code{
+  font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  font-size:.8125em;
+  background:rgba(23,23,27,.045);
+  padding:.1em .4em;
+  border-radius:3px;
+}
+
+.prose-long ul,
+.prose-long ol.num{ margin-top:1.125rem; }
+.prose-long ul li,
+.prose-long ol.num li{
+  position:relative;
+  padding-left:1.375rem;
+  font-size:1rem;
+  line-height:1.72;
+  color:var(--ink-2);
+}
+.prose-long ul li + li,
+.prose-long ol.num li + li{ margin-top:.75rem; }
+.prose-long ul li::before{
+  content:""; position:absolute; left:.1875rem; top:.72em;
+  width:4px; height:1px; background:var(--faint);
+}
+.prose-long ol.num{ counter-reset:n; }
+.prose-long ol.num li::before{
+  counter-increment:n; content:counter(n) ".";
+  position:absolute; left:0; top:0;
+  font-size:.8125rem; color:var(--faint); line-height:1.95;
+}
+
+/* ── Key takeaways ────────────────────────────────────── */
+
+.tldr{
+  margin:clamp(2rem,3.5vw,2.75rem) 0;
+  padding:clamp(1.25rem,2.2vw,1.625rem) 0 clamp(1.25rem,2.2vw,1.625rem) clamp(1.125rem,2vw,1.5rem);
+  border-left:2px solid var(--accent);
+  background:linear-gradient(90deg,rgba(47,72,88,.045),rgba(47,72,88,0) 78%);
+}
+.tldr h2{
+  font-family:var(--sans) !important;
+  font-size:.625rem !important;
+  text-transform:uppercase; letter-spacing:.16em;
+  color:var(--accent) !important;
+  margin:0 0 .875rem !important;
+  font-weight:400 !important;
+}
+.tldr li{ color:var(--ink-2); }
+
+/* ── Callout ──────────────────────────────────────────── */
+
+.callout{
+  margin:clamp(1.75rem,3vw,2.25rem) 0;
+  padding:clamp(1.125rem,2vw,1.5rem) clamp(1.25rem,2.2vw,1.625rem);
+  background:#f6f5f2;
+  border:1px solid var(--line-soft);
+  border-radius:3px;
+}
+.callout .co-label{
+  font-size:.625rem; text-transform:uppercase; letter-spacing:.16em;
+  color:var(--faint); margin-bottom:.625rem; font-weight:400;
+}
+.callout p{ font-size:.9375rem !important; line-height:1.72 !important; }
+
+/* ── Figures, video ───────────────────────────────────── */
+
+.fig{ margin:clamp(2rem,4vw,3rem) 0; }
+.fig img,
+.fig video{
+  width:100%; height:auto; display:block;
+  aspect-ratio:16/9;
+  border-radius:3px;
+  background:#0b0b0d;
+  box-shadow:0 1px 2px rgba(23,23,27,.05), 0 14px 36px -24px rgba(23,23,27,.3);
+}
+.fig img{ aspect-ratio:auto; }
+.fig figcaption{
+  margin-top:.875rem;
+  font-size:.8125rem;
+  line-height:1.65;
+  color:var(--muted);
+}
+.fig figcaption b{ color:var(--ink-2); font-weight:500; }
+.fig-wide{ max-width:none; }
+@media (min-width:1100px){
+  .fig-wide{ width:calc(100% + 7rem); }
+}
+
+/* ── Tables ───────────────────────────────────────────── */
+
+.table-wrap{ margin:clamp(1.75rem,3vw,2.25rem) 0; overflow-x:auto; }
+table.data{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.8125rem;
+  line-height:1.5;
+}
+table.data th,
+table.data td{
+  text-align:left;
+  padding:.625rem .75rem .625rem 0;
+  border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+table.data thead th{
+  font-family:var(--sans);
+  font-size:.625rem; font-weight:400;
+  text-transform:uppercase; letter-spacing:.13em;
+  color:var(--faint);
+  border-bottom:1px solid var(--line);
+  white-space:nowrap;
+}
+table.data tbody th{ font-weight:500; color:var(--ink); white-space:nowrap; }
+table.data td{ color:var(--muted); }
+table.data td.num{ font-variant-numeric:tabular-nums; white-space:nowrap; }
+table.data td.hit{ color:var(--accent); font-weight:500; }
+
+/* ── CSS bar chart ────────────────────────────────────── */
+
+.chart{ margin:clamp(1.75rem,3vw,2.25rem) 0; }
+.chart-row{
+  display:grid;
+  grid-template-columns:minmax(0,7.5rem) minmax(0,1fr) 3rem;
+  align-items:center;
+  gap:.75rem;
+  padding-block:.3125rem;
+}
+.chart-row .k{
+  font-size:.75rem; color:var(--muted); text-align:right;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.chart-row .track{ height:9px; background:rgba(23,23,27,.05); border-radius:2px; position:relative; }
+.chart-row .bar{
+  position:absolute; top:0; bottom:0; left:0;
+  background:var(--accent); border-radius:2px; opacity:.85;
+}
+.chart-row .bar.neg{ background:#9a5a4a; }
+.chart-row .v{ font-size:.6875rem; color:var(--faint); font-variant-numeric:tabular-nums; }
+.chart-legend{
+  display:flex; flex-wrap:wrap; gap:.5rem 1.25rem;
+  margin-top:1rem; font-size:.6875rem; color:var(--muted);
+}
+.chart-legend span::before{
+  content:""; display:inline-block; width:8px; height:8px; border-radius:2px;
+  background:var(--accent); margin-right:.4em; vertical-align:middle; opacity:.85;
+}
+.chart-legend span.neg::before{ background:#9a5a4a; }
+
+/* ── Influence matrix ─────────────────────────────────── */
+
+.matrix{ font-size:.6875rem; border-collapse:collapse; margin-top:.5rem; }
+.matrix th{
+  font-family:var(--sans); font-weight:400;
+  color:var(--faint); padding:.25rem .4rem;
+  text-transform:uppercase; letter-spacing:.08em; font-size:.5625rem;
+  white-space:nowrap;
+}
+.matrix th[scope="row"]{ text-align:right; }
+.matrix td{
+  width:3rem; height:2rem; text-align:center;
+  font-variant-numeric:tabular-nums;
+  color:var(--ink-2);
+  border:1px solid rgba(255,255,255,.9);
+}
+.matrix td.true{ outline:1.5px solid var(--accent); outline-offset:-2px; font-weight:500; }
+.matrix-grid{
+  display:grid; gap:clamp(1.25rem,3vw,2rem);
+  grid-template-columns:repeat(auto-fit,minmax(min(16rem,100%),1fr));
+  margin:clamp(1.75rem,3vw,2.25rem) 0;
+}
+.matrix-grid > div{ min-width:0; overflow-x:auto; }
+.matrix-grid .mx-label{
+  font-size:.625rem; text-transform:uppercase; letter-spacing:.14em;
+  color:var(--faint); font-weight:400;
+}
+
+/* ── Article footer ───────────────────────────────────── */
+
+.article-foot{
+  margin-top:clamp(3.5rem,6vw,5rem);
+  padding-top:clamp(1.75rem,3vw,2.25rem);
+  border-top:1px solid var(--line);
+}
+.article-foot p{ font-size:.8125rem; line-height:1.72; color:var(--muted); }
+.article-foot p + p{ margin-top:.875rem; }
+.article-foot .refs-label{
+  font-size:.625rem; text-transform:uppercase; letter-spacing:.16em;
+  color:var(--faint); margin-bottom:.625rem;
+}
+
+/* ── KaTeX fitting ────────────────────────────────────── */
+
+.katex{ font-size:1em !important; }
+.katex-display{
+  margin:1.5rem 0 !important;
+  overflow-x:auto; overflow-y:hidden;
+  padding-block:.25rem;
+}
+
+@media print{
+  .toc,.back{ display:none; }
+}

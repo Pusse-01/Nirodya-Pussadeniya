@@ -114,6 +114,7 @@
     <nav class="nav-links" aria-label="Sections">
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
+      <a href="#writing">Writing</a>
       <a href="#recognition">Awards</a>
       <a href="#experience">Experience</a>
       <a href="#speaking">Speaking</a>
@@ -174,83 +175,43 @@
     <div class="body">
       <h3 class="display reveal">Multi-agent reinforcement learning that people can actually work with.</h3>
 
-      <div class="thesis reveal">
-        <p class="thesis-label">Doctoral thesis</p>
-        <p class="thesis-title">Adaptive Human&ndash;AI Collaboration for Emergency Response</p>
-        <p class="thesis-meta">
-          Deakin University, School of Information Technology &middot; Coventry University, Centre for
-          Postdigital Cultures &mdash; cotutelle PhD, 2025&ndash;2028
-        </p>
-        <p class="thesis-meta">
-          Supervisors: Dr Bahareh Nakisa, Prof Xiao Liu, A/Prof Robert Faggian,
-          Dr Safaa Sindi, Prof Stewart Birrell
-        </p>
-      </div>
-
       <div class="prose reveal">
         <p>
-          Emergency environments change faster than human operators can replan. A wind shift can rotate an
-          active fire front ninety degrees in minutes; ember attacks open new ignition points kilometres ahead
-          of the front. Autonomous drone teams can absorb some of that load &mdash; but most multi-agent systems
-          optimise mission metrics while ignoring the operator's cognitive state, and end up adding work rather
-          than removing it.
-        </p>
-        <p>
-          So the question driving my PhD is this: <em>how can an adaptive hierarchical multi-agent system
-          dynamically allocate tasks, reason about human mental states, and balance individual against
-          team-level objectives, in order to reduce operator cognitive overload in high-stakes response?</em>
-          Answering it means putting reinforcement learning, Theory of Mind modelling and human factors research
-          into one framework, and then testing it with real operators in the loop.
-        </p>
-        <p class="note">
-          I'm early in this &mdash; two papers published, the ASTRA framework implemented and benchmarked, and
-          the simulation platform well underway. The work ahead is aimed at AAAI, AAMAS and ICML.
+          Autonomous teams are becoming capable enough to act on our behalf in high-stakes settings.
+          My work is about the part capability alone doesn't solve: coordinating a team of agents under
+          pressure while keeping the human supervising them informed, in control, and not overloaded.
         </p>
       </div>
 
-      <ol class="threads">
+      <div class="thesis reveal">
+        <p class="thesis-label">Doctoral research</p>
+        <p class="thesis-title">Adaptive Human&ndash;AI Collaboration for Emergency Response</p>
+        <p class="thesis-meta">Deakin University &amp; Coventry University &mdash; cotutelle PhD, 2025&ndash;2028</p>
+      </div>
+
+      <ul class="topics">
         <li class="reveal">
-          <span class="n">01</span>
-          <h4>ASTRA &mdash; hierarchical multi-agent RL</h4>
-          <p>An Asynchronous Skill Transition and Reallocation Architecture. A high-level coordinator assigns a
-             shared team skill alongside per-agent skills while low-level policies execute primitives, with
-             event-driven skill termination, dynamic reallocation, transition-based skill discovery and
-             asynchronous credit assignment &mdash; so agents coordinate while running on independent temporal
-             horizons. Implemented and evaluated on Google Research Football, Overcooked-AI and the StarCraft
-             Multi-Agent Challenge.</p>
+          <h4>Multi-agent reinforcement learning</h4>
+          <p>Coordination and task allocation when objectives shift mid-mission and communication is unreliable.</p>
         </li>
         <li class="reveal">
-          <span class="n">02</span>
-          <h4>Controlled selfish behaviour</h4>
-          <p>Cooperative MARL usually penalises individual deviation as a coordination failure. But operational
-             doctrine says local field intelligence sometimes justifies it. I'm learning a state-conditioned
-             policy for when an agent should override team objectives to answer a locally critical event &mdash;
-             and how that deviation gets communicated back and reconciled with the team.</p>
+          <h4>Human&ndash;AI teaming</h4>
+          <p>Autonomy that adapts to the person supervising it, rather than a level fixed at design time.</p>
         </li>
         <li class="reveal">
-          <span class="n">03</span>
-          <h4>Theory of Mind for adaptive autonomy</h4>
-          <p>Estimating operator workload, trust and intent from multimodal behavioural signals &mdash;
-             intervention frequency, decision latency, reliance patterns, and where feasible physiological
-             measures &mdash; so the system can tune its own level of autonomy to the operator's current
-             cognitive capacity instead of a level fixed at design time.</p>
+          <h4>Multimodal models of human state</h4>
+          <p>Reading workload, trust and intent from behavioural signals as a mission unfolds.</p>
         </li>
         <li class="reveal">
-          <span class="n">04</span>
-          <h4>Language models as the reasoning layer</h4>
-          <p>Knowledge graphs and LLMs sitting over agent state: structured knowledge to keep agent reasoning
-             inspectable rather than merely scored, and natural language to make an agent's intent legible to
-             the operator it is working with. This line runs back through my CARA and Affective-CARA work.</p>
+          <h4>Language models &amp; knowledge graphs</h4>
+          <p>Keeping agent reasoning inspectable, and an agent's intent legible to the person beside it.</p>
         </li>
-        <li class="reveal">
-          <span class="n">05</span>
-          <h4>High-fidelity simulation testbed</h4>
-          <p>A drone-based bushfire response environment built in Unreal Engine 5 &mdash; simulation
-             architecture, operator and administrator interfaces, communication middleware and scenario
-             management &mdash; giving reproducible human-in-the-loop experiments that measure NASA-TLX
-             workload, trust, SAGAT situation awareness and mission outcomes side by side.</p>
-        </li>
-      </ol>
+      </ul>
+
+      <p class="tail reveal">
+        I write about the parts I can share on the <a href="/blog/">blog</a>. Ongoing thesis work is mostly
+        under review &mdash; happy to talk about it directly.
+      </p>
     </div>
   </div>
 </section>
@@ -261,6 +222,22 @@
     <aside class="aside"><span class="idx">02</span><h2 class="label">Publications</h2></aside>
     <div class="body">
       <ol class="pubs">
+        <li class="pub reveal">
+          <div class="pub-meta"><time datetime="2026-10">October 2026</time><span class="venue">NeurIPS 2026 Workshop CODEC-FM</span><span class="tag">Poster</span></div>
+          <h3><a href="https://openreview.net/forum?id=MTzRGBVAfc" target="_blank" rel="noopener">
+            Which Half of Participation Does the Sparse&#8209;Averaging Contraction Need?
+            <span class="arrow" aria-hidden="true">&#8599;</span></a></h3>
+          <p class="authors"><strong>Nirodya Pussadeniya</strong></p>
+          <p class="abstract">
+            Decentralised training keeps replicas in step by periodically averaging a random subset of their
+            weights. Existing guarantees assume a replica both contributes to the average and receives the
+            result &mdash; separate communication events that fail independently in practice. Separating them
+            reveals an asymmetry: receive failures weaken agreement linearly, while send failures instead
+            displace the value replicas agree on, a second channel doubly stochastic mixing cannot represent.
+            The admissible step size is therefore smaller than previously stated.
+          </p>
+        </li>
+
         <li class="pub reveal">
           <div class="pub-meta"><time datetime="2025-06">June 2025</time><span class="venue">arXiv preprint</span></div>
           <h3><a href="https://www.arxiv.org/abs/2506.14166" target="_blank" rel="noopener">
@@ -289,11 +266,46 @@
         </li>
       </ol>
       <p class="tail reveal">
-        Four further papers are planned from the PhD &mdash; the ASTRA framework, controlled selfish behaviour,
-        Theory of Mind based adaptive autonomy, and the integrated human-in-the-loop evaluation &mdash; targeting
-        AAAI, AAMAS, ICML and JAIR. The current list is on
+        Further work from the PhD is in preparation. The current list is on
         <a href="https://scholar.google.com/citations?user=7eu3DecAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.
       </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Writing ────────────────────────────────────────── -->
+<section class="section" id="writing">
+  <div class="wrap grid">
+    <aside class="aside"><span class="idx">03</span><h2 class="label">Writing</h2></aside>
+    <div class="body">
+      <p class="intro reveal">
+        Long-form notes on things I've built and what broke along the way &mdash; including the failures,
+        which are usually the useful part.
+      </p>
+
+      <ol class="posts">
+        <li class="post reveal">
+          <a href="/blog/fly-causal-jepa/">
+            <figure class="post-thumb">
+              <img src="/blog/fly-causal-jepa/featured-poster.jpg" width="1000" height="563"
+                   loading="lazy" decoding="async"
+                   alt="Causal-JEPA imagining a spider's path inside the FlyWorld simulator">
+            </figure>
+            <div class="post-body">
+              <div class="post-meta"><time datetime="2026-10">October 2026</time><span>22 min read</span></div>
+              <h3>Can a Fly Learn the World with Causal&#8209;JEPA?</h3>
+              <p>
+                We built a 4,096-neuron fly brain from connectome statistics, put it in a virtual dish with
+                wind, an odour plume and a hunting spider, and asked whether a self-supervised world model
+                could learn how that world works &mdash; and reuse it in worlds it had never seen.
+              </p>
+              <span class="post-more">Read the post <span class="arrow" aria-hidden="true">&#8594;</span></span>
+            </div>
+          </a>
+        </li>
+      </ol>
+
+      <p class="tail reveal"><a href="/blog/">All posts</a></p>
     </div>
   </div>
 </section>
@@ -301,7 +313,7 @@
 <!-- ── Recognition ────────────────────────────────────── -->
 <section class="section band" id="recognition">
   <div class="wrap grid">
-    <aside class="aside"><span class="idx">03</span><h2 class="label">Awards</h2></aside>
+    <aside class="aside"><span class="idx">04</span><h2 class="label">Awards</h2></aside>
     <div class="body">
       <h3 class="display reveal">Work that has been recognised.</h3>
 
@@ -354,7 +366,7 @@
 <!-- ── Experience ─────────────────────────────────────── -->
 <section class="section" id="experience">
   <div class="wrap grid">
-    <aside class="aside"><span class="idx">04</span><h2 class="label">Experience</h2></aside>
+    <aside class="aside"><span class="idx">05</span><h2 class="label">Experience</h2></aside>
     <div class="body">
 
       <h3 class="sub reveal">Research</h3>
@@ -466,7 +478,7 @@
 <!-- ── Toolkit ────────────────────────────────────────── -->
 <section class="section" id="toolkit">
   <div class="wrap grid">
-    <aside class="aside"><span class="idx">05</span><h2 class="label">Toolkit</h2></aside>
+    <aside class="aside"><span class="idx">06</span><h2 class="label">Toolkit</h2></aside>
     <div class="body">
       <div class="kit reveal">
         <h3>Domains</h3>
@@ -492,7 +504,7 @@
 <!-- ── Speaking ───────────────────────────────────────── -->
 <section class="section" id="speaking">
   <div class="wrap grid">
-    <aside class="aside"><span class="idx">06</span><h2 class="label">Speaking</h2></aside>
+    <aside class="aside"><span class="idx">07</span><h2 class="label">Speaking</h2></aside>
     <div class="body">
       <p class="intro reveal">
         I speak often about agentic systems, reasoning, and what actually survives contact with production.
@@ -530,7 +542,7 @@
 <!-- ── Contact ────────────────────────────────────────── -->
 <section class="section contact" id="contact">
   <div class="wrap grid">
-    <aside class="aside"><span class="idx">07</span><h2 class="label">Contact</h2></aside>
+    <aside class="aside"><span class="idx">08</span><h2 class="label">Contact</h2></aside>
     <div class="body">
       <h3 class="display reveal">Let&rsquo;s talk.</h3>
       <p class="prose reveal">

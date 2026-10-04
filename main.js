@@ -39,24 +39,35 @@
     items.forEach(function (el) { io.observe(el); });
   }
 
-  /* nav scroll-spy */
-  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
-  var sections = links
-    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
-    .filter(Boolean);
+  /* scroll-spy: highlights the current section in the nav and in a post's TOC */
+  function spy(links, rootMargin) {
+    var items = Array.prototype.slice.call(links);
+    var targets = items
+      .map(function (a) {
+        var h = a.getAttribute('href') || '';
+        var i = h.indexOf('#');
+        if (i < 0 || i === h.length - 1) return null;
+        try { return document.querySelector(h.slice(i)); } catch (e) { return null; }
+      })
+      .filter(Boolean);
+    if (!targets.length || !('IntersectionObserver' in window)) return;
 
-  if (sections.length && 'IntersectionObserver' in window) {
     var visible = new Set();
-    var spy = new IntersectionObserver(function (entries) {
+    var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) visible.add(e.target.id);
         else visible.delete(e.target.id);
       });
-      var current = sections.filter(function (s) { return visible.has(s.id); })[0];
-      links.forEach(function (a) {
-        a.classList.toggle('active', !!current && a.getAttribute('href') === '#' + current.id);
+      var current = targets.filter(function (t) { return visible.has(t.id); })[0];
+      items.forEach(function (a) {
+        var h = a.getAttribute('href') || '';
+        a.classList.toggle('active', !!current && h.slice(h.indexOf('#')) === '#' + current.id);
       });
-    }, { rootMargin: '-30% 0px -55% 0px' });
-    sections.forEach(function (s) { spy.observe(s); });
+    }, { rootMargin: rootMargin });
+    targets.forEach(function (t) { io.observe(t); });
   }
+
+  spy(document.querySelectorAll('.nav-links a[href*="#"]'), '-30% 0px -55% 0px');
+  spy(document.querySelectorAll('.toc a[href^="#"]'), '-12% 0px -70% 0px');
+
 })();
