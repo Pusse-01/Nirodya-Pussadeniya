@@ -7,7 +7,9 @@ Static HTML, CSS and ~60 lines of vanilla JS. No build step, no framework, no de
 ```
 index.html                  the whole page
 styles.css                  design system + layout
+blog.css                    blog-only styles, built on the same tokens
 main.js                     scroll reveal, nav hairline, scroll-spy (progressive enhancement)
+blog/                       blog index + one folder per post (HTML, video, posters)
 assets/
   portrait.jpg/.webp        hero portrait
   speaking.jpg/.webp        Google I/O Extended keynote
@@ -47,4 +49,6 @@ Content lives directly in `index.html` — sections are commented and in page or
 Design tokens (colours, fonts, spacing) are the custom properties at the top of
 `styles.css`; changing `--accent` or `--paper` re-themes the whole page.
 
-
+Posts live in `blog/<slug>/index.html` with their media beside them. To add one,
+copy an existing post folder, then add a card to `blog/index.html` and to the
+Writing section of `index.html`.
